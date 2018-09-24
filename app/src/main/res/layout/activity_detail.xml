@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.DetailActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <data>
+        <variable
+            name="matchDetailXml"
+            type="com.example.f.submision3.view.match.MatchViewModel"/>
+        <variable
+            name="xmlDetail"
+            type="com.example.f.submission3.model.EventsItem"/>
+
+    </data>
+
 
 
     <LinearLayout
@@ -17,6 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
+
+            app:visibility="@{matchDetailXml.loading}"
             />
 
         <ScrollView
@@ -34,9 +48,10 @@
                     android:id="@+id/detailTanggal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tanggal"
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:text="@{xmlDetail.strDate}"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -58,6 +73,7 @@
                             android:layout_height="80dp"
                             app:srcCompat="@mipmap/ic_launcher_round"
 
+                            app:imgRes="@{xmlDetail.idHomeTeam == null ? @string/blank : xmlDetail.idHomeTeam}"
                             />
 
                         <TextView
@@ -65,7 +81,10 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            tools:text="tesA" />
+
+                            android:text="@{xmlDetail.strHomeTeam}"
+
+                            />
 
                         <TextView
                             android:id="@+id/detailFormasiA"
@@ -73,7 +92,9 @@
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:textSize="10sp"
-                            tools:text="tesA" />
+                            tools:text="tesA"
+
+                            />
 
                     </LinearLayout>
 
@@ -83,10 +104,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="1"
                         android:textAlignment="center"
                         android:textSize="30sp"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+
+                        android:text="@{xmlDetail.intHomeScore}"
+                        />
 
                     <TextView
                         android:id="@+id/textView4"
@@ -95,17 +118,19 @@
                         android:layout_weight="1"
                         android:text="VS"
                         android:textAlignment="center"
-                        tools:text="VS" />
+                        />
 
                     <TextView
                         android:id="@+id/detailSkorB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="0"
                         android:textAlignment="center"
                         android:textSize="30sp"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+
+                        android:text="@{xmlDetail.intAwayScore}"
+                        />
 
 
                     <LinearLayout
@@ -122,6 +147,7 @@
                             android:layout_height="80dp"
                             app:srcCompat="@mipmap/ic_launcher_round"
 
+                            app:imgRes="@{xmlDetail.idAwayTeam == null ? @string/blank : xmlDetail.idAwayTeam}"
                             />
 
                         <TextView
@@ -129,7 +155,10 @@
                             android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            tools:text="tesB" />
+                            tools:text="tesB"
+
+                            android:text="@{xmlDetail.strAwayTeam}"
+                            />
 
                         <TextView
                             android:id="@+id/detaiFormasiB"
@@ -137,7 +166,10 @@
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
                             android:textSize="10sp"
-                            tools:text="tesA" />
+                            tools:text="tesA"
+
+                            android:text="@{xmlDetail.strAwayFormation}"
+                            />
 
                     </LinearLayout>
 
@@ -159,7 +191,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strHomeGoalDetails}"
+                        />
 
                     <TextView
                         android:id="@+id/textView8"
@@ -175,7 +210,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strAwayGoalDetails}"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -191,7 +229,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.intHomeShots}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -206,7 +247,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.intAwayShots}"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -222,7 +266,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strHomeYellowCards}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -237,7 +284,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strAwayYellowCards}"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -253,7 +303,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strHomeRedCards}"
+
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -268,7 +322,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strAwayRedCards}"
+                        />
                 </LinearLayout>
 
                 <TextView
@@ -278,7 +335,8 @@
                     android:layout_marginTop="10dp"
                     android:text="Lineups"
                     android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -293,7 +351,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strHomeLineupGoalkeeper}"
+
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -308,7 +370,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strAwayLineupGoalkeeper}"
+
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -324,7 +390,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strHomeLineupDefense}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -339,7 +408,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strAwayLineupDefense}"
+
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -355,7 +428,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strHomeLineupMidfield}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -370,7 +446,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strAwayLineupMidfield}"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -386,7 +465,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strHomeLineupForward}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -401,7 +483,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strAwayLineupForward}"
+                        />
                 </LinearLayout>
 
                 <LinearLayout
@@ -417,7 +502,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strHomeLineupSubstitutes}"
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -432,7 +520,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+
+                        android:text="@{xmlDetail.strAwayLineupSubstitutes}"
+                        />
                 </LinearLayout>
 
 
@@ -443,3 +534,4 @@
     </LinearLayout>
 
 </layout>
+

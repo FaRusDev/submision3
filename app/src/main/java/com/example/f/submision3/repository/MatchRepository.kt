@@ -1,35 +1,39 @@
 package com.example.f.submision3.repository
 
 import com.example.f.submision3.data.remote.MatchRemoteData
-import com.example.f.submision3.di.DaggerApp
-import com.example.f.submision3.network.Connectivity
-import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
+import com.example.f.submission3.model.Team
+import com.example.f.submission3.model.TeamsItem
+
 
 class MatchRepository{
-    @Inject
-    lateinit var daggerApp:DaggerApp
 
-    var matchRemoteData:MatchRemoteData = MatchRemoteData()
-    var connectivity:Connectivity = Connectivity(daggerApp.applicationContext)
+    var x:TeamsItem? = null
+
+    var matchRemoteData:MatchRemoteData = object : MatchRemoteData(){
+        override fun subscribeTeamSuccess(team: Team) {
+            x = team.teams?.get(0)
+        }
+    }
+
+    //rencananya class ini utntuk periksa koneksi klo koneksinya ada fungsinya bakal kurang lebih kyk gini
+//
+//    fun getNextMatch(){
+//        if(isConnected){
+//            matchRemoteData.getNextMatch()
+//        }else{matchLocalData.getNextMatch()}
+//    }
 
     fun getNextMatch(){
-        if (connectivity.isConnectedToInet!!){
-            matchRemoteData.getNextMatch()
-        }
+       matchRemoteData.getNextMatch()
     }
 
     fun getLastMatch(){
-        if (connectivity.isConnectedToInet!!){
-            matchRemoteData.getLastMatch()
-        }
+        matchRemoteData.getLastMatch()
     }
 
-    fun getTeam(id:String){
-        if (connectivity.isConnectedToInet!!){
-            matchRemoteData.getTeam(id)
-        }
+    fun getTeam(id:String): TeamsItem? {
+        matchRemoteData.getTeam(id)
+        return x
     }
-
 
 }

@@ -1,25 +1,17 @@
 package com.example.f.submision3.view.match
 
-import android.arch.lifecycle.MutableLiveData
+import android.content.Context
+import android.database.sqlite.SQLiteConstraintException
+import android.widget.Toast
+import com.example.f.submision3.data.local.DbOpenHelper
+import com.example.f.submision3.data.local.database
 import com.example.f.submision3.di.component.ComponentDagger
-import com.example.f.submision3.network.Network
-import com.example.f.submision3.repository.MatchRepository
 import com.example.f.submision3.view.base.BaseViewModel
-import com.example.f.submission3.model.Match
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
+import com.example.f.submission3.model.EventsItem
+import com.example.f.submission3.model.TeamsItem
+import org.jetbrains.anko.db.*
 
-abstract class MatchViewModel: BaseViewModel() {
-
-    val matchRepository:MatchRepository = MatchRepository()
-
-    //komponen dari data binding
-    val loading:MutableLiveData<Boolean> = MutableLiveData()
-    val rvVisibility:MutableLiveData<Boolean> = MutableLiveData()
-    val matchAdapter: MatchAdapter = MatchAdapter()
-    var compositeDisposable:CompositeDisposable = CompositeDisposable()
+open class MatchViewModel: BaseViewModel() {
 
     override fun injector(componentDagger: ComponentDagger) {
         componentDagger.inject(this)
@@ -29,6 +21,7 @@ abstract class MatchViewModel: BaseViewModel() {
         matchRepository.matchRemoteData.adapter = matchAdapter
         matchRepository.matchRemoteData.loading = loading
         matchRepository.matchRemoteData.rvVisibility = rvVisibility
+        matchRepository.matchRemoteData.network = network
         matchRepository.matchRemoteData.compositeDisposable = compositeDisposable
     }
 
@@ -38,6 +31,20 @@ abstract class MatchViewModel: BaseViewModel() {
 
     fun getLastMatch(){
         matchRepository.getLastMatch()
+    }
+
+    fun getTeam(id:String): TeamsItem? {
+        return matchRepository.getTeam(id)
+    }
+
+    var favorites :MutableList<EventsItem> = mutableListOf()
+    fun showFavorite(ctx:Context){
+        DbOpenHelper.getInstance(ctx).use {
+            val result = select(EventsItem.favorite!!)
+            val fav = result.parseList(classParser<EventsItem>())
+            favorites.addAll(fav)
+            matchAdapter.notifyDataSetChanged()
+        }
     }
 
 }

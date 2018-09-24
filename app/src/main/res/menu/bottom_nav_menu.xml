@@ -17,7 +17,7 @@
         app:showAsAction="ifRoom"
         />
     <item
-        android:id="@+id/favMatchMenu"
+        android:id="@+id/favouriteMatchMenu"
         android:enabled="true"
         android:title="Favorite Match"
         android:icon="@android:drawable/star_off"
