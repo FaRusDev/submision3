@@ -1,7 +1,6 @@
 package com.example.f.submision3.data.remote
 
 import android.arch.lifecycle.MutableLiveData
-import com.example.f.submision3.model.DbModel
 import com.example.f.submision3.network.Network
 import com.example.f.submision3.view.match.MatchAdapter
 import com.example.f.submission3.model.Match

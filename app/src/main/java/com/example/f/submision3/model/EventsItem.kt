@@ -5,106 +5,98 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class EventsItem(
-        val favorite:String?,
+        var id:Long?,
 
-	@SerializedName("idEvent")
-	val idEvent:String?,
+        @SerializedName("idEvent")
+	val idEvent: String?,
 
-	@SerializedName("intHomeShots")
+        @SerializedName("intHomeShots")
 	val intHomeShots: String?,
 
-	@SerializedName("strSport")
-	val strSport: String?,
-
-	@SerializedName("strHomeLineupDefense")
+        @SerializedName("strHomeLineupDefense")
 	val strHomeLineupDefense: String?,
 
-	@SerializedName("strAwayLineupSubstitutes")
+        @SerializedName("strAwayLineupSubstitutes")
 	val strAwayLineupSubstitutes: String?,
 
-	@SerializedName("strHomeLineupForward")
+        @SerializedName("strHomeLineupForward")
 	val strHomeLineupForward: String?,
 
-	@SerializedName("strHomeGoalDetails")
+        @SerializedName("strHomeGoalDetails")
 	val strHomeGoalDetails: String?,
 
-	@SerializedName("strAwayLineupGoalkeeper")
+        @SerializedName("strAwayLineupGoalkeeper")
 	val strAwayLineupGoalkeeper: String?,
 
-	@SerializedName("strAwayLineupMidfield")
+        @SerializedName("strAwayLineupMidfield")
 	val strAwayLineupMidfield: String?,
 
-	@SerializedName("strHomeYellowCards")
+        @SerializedName("strHomeYellowCards")
 	val strHomeYellowCards: String?,
 
-	@SerializedName("idHomeTeam")
+        @SerializedName("idHomeTeam")
 	val idHomeTeam: String?,
 
-	@SerializedName("intHomeScore")
+        @SerializedName("intHomeScore")
 	val intHomeScore: String?,
 
-	@SerializedName("dateEvent")
+        @SerializedName("dateEvent")
 	val dateEvent: String?,
 
-	@SerializedName("strAwayTeam")
+        @SerializedName("strAwayTeam")
 	val strAwayTeam: String?,
 
-	@SerializedName("strHomeLineupMidfield")
+        @SerializedName("strHomeLineupMidfield")
 	val strHomeLineupMidfield: String?,
 
-	@SerializedName("strDate")
-	val strDate: String?,
-
-	@SerializedName("strHomeFormation")
+        @SerializedName("strHomeFormation")
 	val strHomeFormation: String?,
 
-	@SerializedName("idAwayTeam")
+        @SerializedName("idAwayTeam")
 	val idAwayTeam: String?,
 
-	@SerializedName("strAwayRedCards")
+        @SerializedName("strAwayRedCards")
 	val strAwayRedCards: String?,
 
-	@SerializedName("intAwayShots")
+        @SerializedName("intAwayShots")
 	val intAwayShots: String?,
 
-	@SerializedName("strAwayGoalDetails")
+        @SerializedName("strAwayGoalDetails")
 	val strAwayGoalDetails: String?,
 
-	@SerializedName("strAwayLineupForward")
+        @SerializedName("strAwayLineupForward")
 	val strAwayLineupForward: String?,
 
-	@SerializedName("strHomeRedCards")
+        @SerializedName("strHomeRedCards")
 	val strHomeRedCards: String?,
 
-	@SerializedName("strHomeLineupGoalkeeper")
+        @SerializedName("strHomeLineupGoalkeeper")
 	val strHomeLineupGoalkeeper: String?,
 
-	@SerializedName("strHomeLineupSubstitutes")
+        @SerializedName("strHomeLineupSubstitutes")
 	val strHomeLineupSubstitutes: String?,
 
-	@SerializedName("strAwayFormation")
+        @SerializedName("strAwayFormation")
 	val strAwayFormation: String?,
 
-	@SerializedName("strAwayYellowCards")
+        @SerializedName("strAwayYellowCards")
 	val strAwayYellowCards: String?,
 
-	@SerializedName("strAwayLineupDefense")
+        @SerializedName("strAwayLineupDefense")
 	val strAwayLineupDefense: String?,
 
-	@SerializedName("strHomeTeam")
+        @SerializedName("strHomeTeam")
 	val strHomeTeam: String?,
 
-	@SerializedName("intAwayScore")
+        @SerializedName("intAwayScore")
 	val intAwayScore: String?,
 
-    val homeBadgeTeam:String?,
-    val awayBadgeTeam:String?
+        val homeBadgeTeam: String?,
+        val awayBadgeTeam: String?
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString(),
+            parcel.readValue(Long::class.java.classLoader) as? Long,
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
@@ -138,10 +130,9 @@ data class EventsItem(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(favorite)
+        parcel.writeValue(id)
         parcel.writeString(idEvent)
         parcel.writeString(intHomeShots)
-        parcel.writeString(strSport)
         parcel.writeString(strHomeLineupDefense)
         parcel.writeString(strAwayLineupSubstitutes)
         parcel.writeString(strHomeLineupForward)
@@ -154,7 +145,6 @@ data class EventsItem(
         parcel.writeString(dateEvent)
         parcel.writeString(strAwayTeam)
         parcel.writeString(strHomeLineupMidfield)
-        parcel.writeString(strDate)
         parcel.writeString(strHomeFormation)
         parcel.writeString(idAwayTeam)
         parcel.writeString(strAwayRedCards)
@@ -178,73 +168,68 @@ data class EventsItem(
     }
 
     companion object CREATOR : Parcelable.Creator<EventsItem> {
+        val favorite = "fav"
+        const val ID = "id"
 
-        val favorite:String? = "fav"
+        const val ID_EVENT = "iE"
 
-        val ID_EVENT:String? = "iE"
+        const val intHomeShots = "iHSh"
 
-        val intHomeShots: String? = "iHSh"
+        const val strHomeLineupDefense = "sHLD"
 
-        val strSport: String? = "sS"
+        const val strAwayLineupSubstitutes = "sALS"
 
-        val strHomeLineupDefense: String? = "sHLD"
+        const val strHomeLineupForward = "sHLF"
 
-        val strAwayLineupSubstitutes: String? = "sALS"
+        const val strHomeGoalDetails = "sHGD"
 
-        val strHomeLineupForward: String? = "sHLF"
+        const val strAwayLineupGoalkeeper = "sALGK"
 
-        val strHomeGoalDetails: String? = "sHGD"
+        const val strAwayLineupMidfield = "sALM"
 
-        val strAwayLineupGoalkeeper: String? = "sALGK"
+        const val strHomeYellowCards = "sHYC"
 
-        val strAwayLineupMidfield: String? = "sALM"
+        const val IDHOMETEAM = "iHT"
 
-        val strHomeYellowCards: String? = "sHYC"
+        const val INTHOMESCORE = "iHS"
 
-        val IDHOMETEAM: String? = "iHT"
+        const val dateEvent = "dE"
 
-        val INTHOMESCORE: String? = "iHS"
-
-        val dateEvent: String? = "dE"
-
-        val STRAWAYTEAM: String? = "sAT"
+        const val STRAWAYTEAM = "sAT"
 
 
-        val strHomeLineupMidfield: String? = "sHLM"
+        const val strHomeLineupMidfield = "sHLM"
 
-        val strDate: String? = "sD"
+        const val strHomeFormation = "sHF"
 
-        val strHomeFormation: String? = "sHF"
+        const val IDAWAYTEAM = "iAT"
 
-        val IDAWAYTEAM: String? = "iAT"
+        const val strAwayRedCards = "sARC"
 
-        val strAwayRedCards: String? = "sARC"
+        const val intAwayShots = "iASh"
 
-        val intAwayShots: String? = "iASh"
+        const val strAwayGoalDetails = "sAGD"
 
-        val strAwayGoalDetails: String? = "sAGD"
+        const val strAwayLineupForward = "sALF"
 
-        val strAwayLineupForward: String? = "sALF"
+        const val strHomeRedCards = "sHRC"
 
-        val strHomeRedCards: String? = "sHRC"
+        const val strHomeLineupGoalkeeper = "sHLGK"
 
-        val strHomeLineupGoalkeeper: String? = "sHLGK"
+        const val strHomeLineupSubstitutes = "sHLS"
 
-        val strHomeLineupSubstitutes: String? = "sHLS"
+        const val strAwayFormation = "sAF"
 
-        val strAwayFormation: String? = "sAF"
+        const val strAwayYellowCards = "sAYC"
 
-        val strAwayYellowCards: String? = "sAYC"
+        const val strAwayLineupDefense = "sALD"
 
-        val strAwayLineupDefense: String? = "sALD"
+        const val STRHOMETEAM = "sHT"
 
-        val STRHOMETEAM: String? = "sHT"
+        const val INTAWAYSCORE = "iAS"
 
-        val INTAWAYSCORE: String? = "iAS"
-
-        val homeBadgeTeam:String? = "hBT"
-        val awayBadgeTeam:String? = "aBT"
-
+        const val homeBadgeTeam = "hBT"
+        const val awayBadgeTeam = "aBT"
         override fun createFromParcel(parcel: Parcel): EventsItem {
             return EventsItem(parcel)
         }
@@ -256,3 +241,4 @@ data class EventsItem(
 
 
 }
+

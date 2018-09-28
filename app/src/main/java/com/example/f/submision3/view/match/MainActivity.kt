@@ -1,5 +1,6 @@
 package com.example.f.submision3.view.match
 
+import android.arch.lifecycle.ViewModelProviders
 import android.util.Log
 import com.example.f.submision3.R
 import com.example.f.submision3.data.local.DbOpenHelper
@@ -26,7 +27,7 @@ class MainActivity:BaseActivity<ActivityMainBinding,MatchViewModel>() {
         //setting lifecycle
         mainBinding.setLifecycleOwner(this)
 
-        DbOpenHelper(this)
+
 
         bottom_nav_view.setOnNavigationItemSelectedListener {item ->
             when(item.itemId){

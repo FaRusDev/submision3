@@ -1,7 +1,6 @@
 package com.example.f.submision3.view.match.fragment
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import com.example.f.submision3.R
 import com.example.f.submision3.databinding.FragmentMatchBinding
@@ -29,6 +28,6 @@ class FavouriteMatchFragment:BaseFragment<FragmentMatchBinding, MatchViewModel>(
 
         mainBinding.recyclerView.layoutManager = LinearLayoutManager(viewBinding.context)
 
-        viewModel.showFavorite(viewBinding.context)
+        viewModel.showFavorite(context)
     }
 }

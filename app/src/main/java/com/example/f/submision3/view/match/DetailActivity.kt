@@ -1,8 +1,6 @@
 package com.example.f.submision3.view.match
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.database.sqlite.SQLiteConstraintException
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.Menu
@@ -21,16 +19,20 @@ import org.jetbrains.anko.db.*
 
 class DetailActivity:BaseActivity<ActivityDetailBinding,MatchViewModel>() {
 
+
+
     override fun inject(componentDagger: ComponentDagger) {
         componentDagger.inject(this)
     }
 
     override fun setLayoutResource(): Int = R.layout.activity_detail
+
     lateinit var extra:EventsItem
+    private var menuItem:Menu? = null
 
     override fun code() {
         //ini ambil data pake parcelable
-        extra = intent.extras.getParcelable<EventsItem>(EXTRA_MATCH)
+        extra = intent.extras.getParcelable(EXTRA_MATCH)
 
         mainBinding.setLifecycleOwner(this)
         mainBinding.xmlDetail = extra
@@ -41,119 +43,67 @@ class DetailActivity:BaseActivity<ActivityDetailBinding,MatchViewModel>() {
         supportActionBar?.title = "Detail Match"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (extra.idEvent != null){
-            favoriteState(extra)
+        favState()
+
+    }
+
+    fun setFavorite(){
+        if (viewModel.isFavorite){
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this,R.drawable.ic_has_added_to_fav)
+        } else{
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this,R.drawable.ic_add_to_fav)
         }
     }
 
-    private var menuItem:Menu? = null
+    fun favState(){
+
+        val x = database.use {
+            val n = select(EventsItem.favorite).whereArgs("iE = {id}","id" to extra.idEvent!!)
+            val fav = n.parseList(classParser<EventsItem>())
+
+            return@use fav
+        }
+
+        if(x.isNotEmpty()){
+            if (x.get(0).idEvent == extra.idEvent){
+                viewModel.favoriteState(database,extra.idEvent)
+            }
+        }
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
         menuInflater.inflate(detail_menu,menu)
         menuItem = menu
+        setFavorite()
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
         return when(item?.itemId){
             android.R.id.home -> {
                 finish()
                 true
             }
             add_to_fav->{
-
-                if (isFavorite){
-                   removeFromFav(extra)
+                if (viewModel.isFavorite){
+                   viewModel.removeFromFav(database,this,extra)
+                    finish()
                 }else{
-                    addToFav(extra,this)
+                    viewModel.addToFav(database,this,extra)
                 }
 
-                isFavorite = !isFavorite
+                viewModel.isFavorite = !viewModel.isFavorite
                 setFavorite()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
+
         }
     }
 
-    fun setFavorite(){
-        if (isFavorite)
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this,R.drawable.ic_has_added_to_fav)
-        else
-            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this,R.drawable.ic_add_to_fav)
-    }
 
-    var isFavorite:Boolean = false
-
-
-    //fungsi tambah ke db favorite
-    fun addToFav(extra:EventsItem,context:Context){
-        val homeBadge = viewModel.getTeam(extra.idHomeTeam.toString())
-        val awayBadge = viewModel.getTeam(extra.idAwayTeam.toString())
-
-        try{
-            database.use{
-                insert(EventsItem.favorite!!,
-                        EventsItem.ID_EVENT!! to extra.idEvent,
-
-                        EventsItem.IDHOMETEAM!! to extra.idHomeTeam,
-                        EventsItem.STRHOMETEAM!! to extra.strHomeTeam,
-                        EventsItem.intHomeShots!! to extra.intHomeShots,
-                        EventsItem.strHomeFormation!! to extra.strHomeFormation,
-                        EventsItem.strHomeGoalDetails!! to extra.strHomeGoalDetails,
-                        EventsItem.strHomeLineupDefense!! to extra.strHomeLineupDefense,
-                        EventsItem.strHomeLineupForward!! to extra.strHomeLineupForward,
-                        EventsItem.strHomeLineupGoalkeeper!! to extra.strHomeLineupGoalkeeper,
-                        EventsItem.strHomeLineupMidfield!! to extra.strHomeLineupMidfield,
-                        EventsItem.strHomeLineupSubstitutes!! to extra.strHomeLineupSubstitutes,
-                        EventsItem.strHomeRedCards!! to extra.strHomeRedCards,
-                        EventsItem.strHomeYellowCards!! to extra.strHomeYellowCards,
-                        EventsItem.homeBadgeTeam!! to homeBadge,
-
-                        EventsItem.IDAWAYTEAM!! to extra.idAwayTeam,
-                        EventsItem.STRAWAYTEAM!! to extra.strAwayTeam,
-                        EventsItem.intAwayShots!! to extra.intAwayShots,
-                        EventsItem.strAwayFormation!! to extra.strAwayFormation,
-                        EventsItem.strAwayGoalDetails!! to extra.strAwayGoalDetails,
-                        EventsItem.strAwayLineupDefense!! to extra.strAwayLineupDefense,
-                        EventsItem.strAwayLineupForward!! to extra.strAwayLineupForward,
-                        EventsItem.strAwayLineupGoalkeeper!! to extra.strAwayLineupGoalkeeper,
-                        EventsItem.strAwayLineupMidfield!! to extra.strAwayLineupMidfield,
-                        EventsItem.strAwayLineupSubstitutes!! to extra.strAwayLineupSubstitutes,
-                        EventsItem.strAwayRedCards!! to extra.strAwayRedCards,
-                        EventsItem.strAwayYellowCards!! to extra.strAwayYellowCards,
-                        EventsItem.awayBadgeTeam!! to awayBadge
-                )
-                Toast.makeText(context.applicationContext,"added to fav ${extra.idEvent}", Toast.LENGTH_SHORT).show()
-            }
-        } catch (e: SQLiteConstraintException){
-            Toast.makeText(context.applicationContext,e.localizedMessage, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun removeFromFav(extra:EventsItem){
-        try {
-            database.use {
-                delete(EventsItem.favorite!!,"(iE = {id})","id" to extra.idEvent.toString())
-
-                Toast.makeText(applicationContext,"remove from fav", Toast.LENGTH_SHORT).show()
-            }
-
-        }catch (e: SQLiteConstraintException){
-            Toast.makeText(applicationContext,e.localizedMessage, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun favoriteState(extra: EventsItem){
-        database.use {
-            val result = select(EventsItem.favorite!!).whereArgs("(iE = {id})",
-                    "id" to extra.idEvent!!)
-            val fav = result.parseList(classParser<EventsItem>())
-            if (!fav.isEmpty())
-                isFavorite = true
-        }
-    }
 
 }
