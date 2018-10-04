@@ -2,10 +2,8 @@ package com.example.f.submision3.view.match
 
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.example.f.submision3.R
 import com.example.f.submision3.R.id.add_to_fav
 import com.example.f.submision3.R.menu.detail_menu
@@ -15,7 +13,8 @@ import com.example.f.submision3.di.component.ComponentDagger
 import com.example.f.submision3.util.EXTRA_MATCH
 import com.example.f.submision3.view.base.BaseActivity
 import com.example.f.submission3.model.EventsItem
-import org.jetbrains.anko.db.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.select
 
 class DetailActivity:BaseActivity<ActivityDetailBinding,MatchViewModel>() {
 
@@ -69,6 +68,7 @@ class DetailActivity:BaseActivity<ActivityDetailBinding,MatchViewModel>() {
                 viewModel.favoriteState(database,extra.idEvent)
             }
         }
+
     }
 
 
@@ -103,7 +103,5 @@ class DetailActivity:BaseActivity<ActivityDetailBinding,MatchViewModel>() {
 
         }
     }
-
-
 
 }

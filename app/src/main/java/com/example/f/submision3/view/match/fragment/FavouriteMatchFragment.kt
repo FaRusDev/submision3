@@ -6,7 +6,6 @@ import com.example.f.submision3.R
 import com.example.f.submision3.databinding.FragmentMatchBinding
 import com.example.f.submision3.di.component.ComponentDagger
 import com.example.f.submision3.view.base.BaseFragment
-import com.example.f.submision3.view.match.DetailActivity
 import com.example.f.submision3.view.match.MatchViewModel
 
 class FavouriteMatchFragment:BaseFragment<FragmentMatchBinding, MatchViewModel>() {

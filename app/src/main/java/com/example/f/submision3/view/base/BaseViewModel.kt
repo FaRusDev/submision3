@@ -13,7 +13,7 @@ abstract class BaseViewModel:ViewModel() {
 
     //TODO: ini cara injeksinya saya masih belum mengerti jadi saya buatkan instance supaya bisa terpanggil
     val retrofit = NetworkModule().providesRetrofit()
-    val network = NetworkModule().providesGsonService(retrofit)
+    var network = NetworkModule().providesGsonService(retrofit)
 
 
     val matchRepository: MatchRepository = MatchRepository()
@@ -24,13 +24,13 @@ abstract class BaseViewModel:ViewModel() {
     var matchAdapter: MatchAdapter = MatchAdapter()
     var compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    //nanti diperbarui di matchviewmodel
-    abstract fun injector(componentDagger: ComponentDagger)
-
-    private val daggerComponent = DaggerApp.componentDagger
-
-    init {
-        injector(daggerComponent)
-    }
+//    //nanti diperbarui di matchviewmodel
+//    abstract fun injector(componentDagger: ComponentDagger)
+//
+//    private var daggerComponent = DaggerApp.componentDagger
+//
+//    init {
+//        injector(daggerComponent)
+//    }
 
 }

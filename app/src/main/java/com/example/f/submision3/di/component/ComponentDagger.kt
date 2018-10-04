@@ -23,7 +23,6 @@ interface ComponentDagger {
         fun build():ComponentDagger
     }
 
-    fun inject(matchViewModel: MatchViewModel)
     fun inject(mainActivity: MainActivity)
     fun inject(detailMatchActivity: DetailActivity)
     fun inject(nextMatchFragment: NextMatchFragment)

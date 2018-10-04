@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.f.submision3.di.DaggerApp
 import com.example.f.submision3.di.component.ComponentDagger
-import kotlinx.android.synthetic.main.fragment_match.*
 
 abstract class BaseFragment<B:ViewDataBinding,V:BaseViewModel>:Fragment() {
     lateinit var mainBinding:B

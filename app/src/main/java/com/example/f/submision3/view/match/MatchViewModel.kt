@@ -1,26 +1,24 @@
 package com.example.f.submision3.view.match
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
-import android.database.sqlite.SQLiteDatabase
-import android.util.Log
 import android.widget.Toast
 import com.example.f.submision3.data.local.DbOpenHelper
-import com.example.f.submision3.data.local.database
 import com.example.f.submision3.di.component.ComponentDagger
 import com.example.f.submision3.view.base.BaseViewModel
 import com.example.f.submission3.model.EventsItem
-import com.example.f.submission3.model.Match
 import com.example.f.submission3.model.TeamsItem
-import org.jetbrains.anko.db.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
 
 open class MatchViewModel: BaseViewModel() {
     var isFavorite:Boolean = false
 
-    override fun injector(componentDagger: ComponentDagger) {
-        componentDagger.inject(this)
-    }
+//    override fun injector(componentDagger: ComponentDagger) {
+//        componentDagger.inject(this)
+//    }
 
     init {
         matchRepository.matchRemoteData.adapter = matchAdapter

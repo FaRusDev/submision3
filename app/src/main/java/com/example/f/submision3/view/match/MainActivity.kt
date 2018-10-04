@@ -1,9 +1,7 @@
 package com.example.f.submision3.view.match
 
-import android.arch.lifecycle.ViewModelProviders
 import android.util.Log
 import com.example.f.submision3.R
-import com.example.f.submision3.data.local.DbOpenHelper
 import com.example.f.submision3.databinding.ActivityMainBinding
 import com.example.f.submision3.di.component.ComponentDagger
 import com.example.f.submision3.view.base.BaseActivity
