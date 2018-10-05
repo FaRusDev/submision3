@@ -56,6 +56,7 @@ fun mutableImage(imageView: ImageView,id:String){
     matchRemoteData.rvVisibility = rvVisibility
     matchRemoteData.network = network
     matchRemoteData.compositeDisposable = compositeDisposable
+    matchRemoteData.providerSchedulers = SchedulerProviders.SchedulerProvider()
 
     matchRemoteData.getTeam(id)
 

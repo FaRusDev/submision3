@@ -2,6 +2,7 @@ package com.example.f.submision3.data.remote
 
 import android.arch.lifecycle.MutableLiveData
 import com.example.f.submision3.network.Network
+import com.example.f.submision3.util.SchedulerProviders
 import com.example.f.submision3.view.match.MatchAdapter
 import com.example.f.submission3.model.Match
 import com.example.f.submission3.model.Team
@@ -17,10 +18,12 @@ abstract class MatchRemoteData(){
     lateinit var rvVisibility: MutableLiveData<Boolean>
     lateinit var compositeDisposable:CompositeDisposable
 
+    lateinit var providerSchedulers:SchedulerProviders.BaseSchedulerProvider
+
     fun getNextMatch(){
         compositeDisposable.add(network.getNextMatch()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .observeOn(providerSchedulers.ui())
+                .subscribeOn(providerSchedulers.io())
                 .doOnSubscribe({onSubscribe()})
                 .doOnComplete({onCompleteSubscribe()})
                 .subscribe({subscribeSuccess(it)},{}))
@@ -28,8 +31,8 @@ abstract class MatchRemoteData(){
 
     fun getLastMatch(){
         compositeDisposable.add(network.getLastMatch()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+                .observeOn(providerSchedulers.ui())
+                .subscribeOn(providerSchedulers.io())
                 .doOnSubscribe({onSubscribe()})
                 .doOnComplete({onCompleteSubscribe()})
                 .subscribe({subscribeSuccess(it)},{}))
@@ -37,8 +40,8 @@ abstract class MatchRemoteData(){
 
     fun getTeam(id:String) {
        compositeDisposable.add(network.getTeam(id)
-               .observeOn(AndroidSchedulers.mainThread())
-               .subscribeOn(Schedulers.io())
+               .observeOn(providerSchedulers.ui())
+               .subscribeOn(providerSchedulers.io())
                .doOnSubscribe({onSubscribe()})
                .doOnComplete({onCompleteSubscribe()})
                 .subscribe({

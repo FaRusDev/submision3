@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteConstraintException
 import android.widget.Toast
 import com.example.f.submision3.data.local.DbOpenHelper
 import com.example.f.submision3.di.component.ComponentDagger
+import com.example.f.submision3.util.SchedulerProviders
 import com.example.f.submision3.view.base.BaseViewModel
 import com.example.f.submission3.model.EventsItem
 import com.example.f.submission3.model.TeamsItem
@@ -27,6 +28,8 @@ open class MatchViewModel: BaseViewModel() {
         matchRepository.matchRemoteData.rvVisibility = rvVisibility
         matchRepository.matchRemoteData.network = network
         matchRepository.matchRemoteData.compositeDisposable = compositeDisposable
+
+        matchRepository.matchRemoteData.providerSchedulers = SchedulerProviders.SchedulerProvider()
     }
 
     fun getNextMatch(){
