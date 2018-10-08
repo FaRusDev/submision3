@@ -5,7 +5,7 @@ import com.example.f.submission3.model.Team
 import com.example.f.submission3.model.TeamsItem
 
 
-class MatchRepository{
+open class MatchRepository{
 
     var x:TeamsItem? = null
 

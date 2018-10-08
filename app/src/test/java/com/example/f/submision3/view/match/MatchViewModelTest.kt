@@ -2,52 +2,59 @@ package com.example.f.submision3.view.match
 
 import com.example.f.submision3.repository.MatchRepository
 import com.example.f.submision3.util.SchedulerProviders
-import com.example.f.submission3.model.Match
-import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
+import org.junit.runner.RunWith
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
+import org.mockito.Spy
+import org.mockito.junit.MockitoJUnitRunner
 
+@RunWith(MockitoJUnitRunner::class)
 class MatchViewModelTest {
 
-    val viewModel = MatchViewModel()
+//    @Mock
+//    lateinit var matchRepoTest:MatchRepository
+//
+//      kenapa klo pake @mock dia return NullPointerException ?
+//      errornya itu matchRepository di class MatchViewModel tidak terinisialisasi
+//      akhirnya saya pake @spy dan berhasil
 
-    @Mock val matchRepository = MatchRepository()
+    @Spy
+    lateinit var matchRepoTest:MatchRepository
 
-    val testObserver = TestObserver<Match>()
+    lateinit var viewModel:MatchViewModel
 
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
 
+        //inisialisasi viewModel
+        viewModel = MatchViewModel(matchRepoTest)
+
         //ganti scheduler ke trampoline untuk rxjava
         viewModel.matchRepository.matchRemoteData.providerSchedulers =
                 SchedulerProviders.TrampolineSchedulerProvider()
-
     }
 
     @Test
-    fun getNextMatch() {
+    fun `testing getNextMatch di class MatchViewModel apakah sama dengan yang di repository`() {
+
         //cek fungsi getNextMatch di viewModel
         viewModel.getNextMatch()
 
-        //cek apakah isi dari class Match itu berubah dari subscription
-        testObserver.hasSubscription()
+        //verifikasi fungsi getNextMatch di viewModel == yg di repository
+        verify(matchRepoTest).getNextMatch()
 
-        //cek apakah yg di viewmodel sama dengan yg di matchRepository
-        assert(matchRepository.getNextMatch() == viewModel.getNextMatch())
     }
 
     @Test
-    fun getLastMatch(){
-        //cek fungsi getLastMatch di viewModel
+    fun `testing getLastMatch di class MatchViewModel apakah sama dengan yang di repository`() {
+        //cek fungsi getNextMatch di viewModel
         viewModel.getLastMatch()
 
-        //cek apakah isi dari class Match itu berubah dari subscription
-        testObserver.hasSubscription()
-
-        //cek apakah yg di viewmodel sama dengan yg di matchRepository
-        assert(matchRepository.getLastMatch() == viewModel.getLastMatch())
+        //verifikasi fungsi getNextMatch di viewModel == yg di repository
+        verify(matchRepoTest).getLastMatch()
     }
+
 }

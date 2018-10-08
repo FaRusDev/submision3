@@ -10,6 +10,8 @@ import com.example.f.submision3.R.menu.detail_menu
 import com.example.f.submision3.data.local.database
 import com.example.f.submision3.databinding.ActivityDetailBinding
 import com.example.f.submision3.di.component.ComponentDagger
+import com.example.f.submision3.repository.MatchRepository
+import com.example.f.submision3.util.CustomViewModelFactory
 import com.example.f.submision3.util.EXTRA_MATCH
 import com.example.f.submision3.view.base.BaseActivity
 import com.example.f.submission3.model.EventsItem
@@ -35,9 +37,10 @@ class DetailActivity:BaseActivity<ActivityDetailBinding,MatchViewModel>() {
 
         mainBinding.setLifecycleOwner(this)
         mainBinding.xmlDetail = extra
+        val matchRepository = MatchRepository()
 
-        viewModel = ViewModelProviders.of(this).get(MatchViewModel::class.java)
-        mainBinding.matchDetailXml = viewModel
+        //setViewModel
+        viewModel = ViewModelProviders.of(this, CustomViewModelFactory(matchRepository)).get(MatchViewModel::class.java)
 
         supportActionBar?.title = "Detail Match"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

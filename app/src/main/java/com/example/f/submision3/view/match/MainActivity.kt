@@ -26,7 +26,6 @@ class MainActivity:BaseActivity<ActivityMainBinding,MatchViewModel>() {
         mainBinding.setLifecycleOwner(this)
 
 
-
         bottom_nav_view.setOnNavigationItemSelectedListener {item ->
             when(item.itemId){
                 R.id.nextMatchMenu -> {loadNextMatchFragment()

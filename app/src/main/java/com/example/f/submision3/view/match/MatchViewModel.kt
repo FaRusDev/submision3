@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteConstraintException
 import android.widget.Toast
 import com.example.f.submision3.data.local.DbOpenHelper
 import com.example.f.submision3.di.component.ComponentDagger
+import com.example.f.submision3.repository.MatchRepository
 import com.example.f.submision3.util.SchedulerProviders
 import com.example.f.submision3.view.base.BaseViewModel
 import com.example.f.submission3.model.EventsItem
@@ -14,12 +15,14 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 
-open class MatchViewModel: BaseViewModel() {
+open class MatchViewModel(val matchRepository: MatchRepository): BaseViewModel() {
+
     var isFavorite:Boolean = false
 
 //    override fun injector(componentDagger: ComponentDagger) {
 //        componentDagger.inject(this)
 //    }
+
 
     init {
         matchRepository.matchRemoteData.adapter = matchAdapter

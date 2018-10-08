@@ -15,9 +15,6 @@ abstract class BaseViewModel:ViewModel() {
     val retrofit = NetworkModule().providesRetrofit()
     var network = NetworkModule().providesGsonService(retrofit)
 
-
-    val matchRepository: MatchRepository = MatchRepository()
-
     //komponen dari data binding
     val loading: MutableLiveData<Boolean> = MutableLiveData()
     val rvVisibility: MutableLiveData<Boolean> = MutableLiveData()

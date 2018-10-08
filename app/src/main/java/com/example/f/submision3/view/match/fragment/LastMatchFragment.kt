@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import com.example.f.submision3.R
 import com.example.f.submision3.databinding.FragmentMatchBinding
 import com.example.f.submision3.di.component.ComponentDagger
+import com.example.f.submision3.repository.MatchRepository
+import com.example.f.submision3.util.CustomViewModelFactory
 import com.example.f.submision3.view.base.BaseFragment
 import com.example.f.submision3.view.match.MatchViewModel
 
@@ -21,8 +23,10 @@ class LastMatchFragment:BaseFragment<FragmentMatchBinding, MatchViewModel>(){
         mainBinding.setLifecycleOwner(this)
 
 
+        val matchRepository = MatchRepository()
+
         //setViewModel
-        viewModel = ViewModelProviders.of(this).get(MatchViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, CustomViewModelFactory(matchRepository)).get(MatchViewModel::class.java)
 
         //set variable untuk xml
         mainBinding.mainMatch = viewModel
