@@ -1,5 +1,6 @@
 package com.example.f.submision3.network
 
+import android.support.test.espresso.idling.CountingIdlingResource
 import com.example.f.submission3.model.Match
 import com.example.f.submission3.model.Team
 import io.reactivex.Observable
@@ -7,6 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface Network {
+
     @GET("eventsnextleague.php?id=4328")
     fun getNextMatch():Observable<Match>
 

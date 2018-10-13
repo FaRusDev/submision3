@@ -1,5 +1,6 @@
 package com.example.f.submision3.view.match
 
+import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import android.database.sqlite.SQLiteConstraintException
 import android.widget.Toast
@@ -18,22 +19,14 @@ import org.jetbrains.anko.db.select
 open class MatchViewModel(val matchRepository: MatchRepository): BaseViewModel() {
 
     var isFavorite:Boolean = false
+    val loading: MutableLiveData<Boolean> = matchRepository.loading
+    val rvVisibility: MutableLiveData<Boolean> = matchRepository.rvVisibility
 
 //    override fun injector(componentDagger: ComponentDagger) {
 //        componentDagger.inject(this)
 //    }
 
-
-    init {
-        matchRepository.matchRemoteData.adapter = matchAdapter
-
-        matchRepository.matchRemoteData.loading = loading
-        matchRepository.matchRemoteData.rvVisibility = rvVisibility
-        matchRepository.matchRemoteData.network = network
-        matchRepository.matchRemoteData.compositeDisposable = compositeDisposable
-
-        matchRepository.matchRemoteData.providerSchedulers = SchedulerProviders.SchedulerProvider()
-    }
+    val matchAdapter = matchRepository.adapter
 
     fun getNextMatch(){
         matchRepository.getNextMatch()

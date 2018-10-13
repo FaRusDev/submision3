@@ -4,8 +4,8 @@
     <item
         android:id="@+id/add_to_fav"
         android:icon="@drawable/ic_add_to_fav"
-        android:title="fav"
         android:iconifiedByDefault="false"
-        app:showAsAction="ifRoom"
-        />
+        android:title="fav"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
 </menu>

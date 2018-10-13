@@ -5,6 +5,7 @@ import com.example.f.submision3.util.SchedulerProviders
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import org.mockito.Spy
@@ -20,7 +21,7 @@ class MatchViewModelTest {
 //      errornya itu matchRepository di class MatchViewModel tidak terinisialisasi
 //      akhirnya saya pake @spy dan berhasil
 
-    @Spy
+    @Mock
     lateinit var matchRepoTest:MatchRepository
 
     lateinit var viewModel:MatchViewModel
@@ -33,7 +34,7 @@ class MatchViewModelTest {
         viewModel = MatchViewModel(matchRepoTest)
 
         //ganti scheduler ke trampoline untuk rxjava
-        viewModel.matchRepository.matchRemoteData.providerSchedulers =
+        matchRepoTest.providerSchedulers =
                 SchedulerProviders.TrampolineSchedulerProvider()
     }
 

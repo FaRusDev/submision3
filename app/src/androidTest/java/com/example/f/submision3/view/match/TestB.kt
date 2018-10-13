@@ -1,3 +1,12 @@
+import android.support.test.espresso.Espresso
+import android.support.test.espresso.action.ViewActions
+import android.support.test.espresso.assertion.ViewAssertions
+import android.support.test.espresso.contrib.RecyclerViewActions
+import android.support.test.espresso.matcher.ViewMatchers
+import android.support.v7.widget.RecyclerView
+import com.example.f.submision3.R
+import org.junit.Test
+
 //package com.example.f.submision3.view.match
 //
 //import android.support.test.espresso.Espresso
@@ -51,13 +60,61 @@
 //
 //    }
 //
-//    @Test
-//    fun recyclerBehav(){
-//        Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-//        Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions
-//                .scrollToPosition<RecyclerView.ViewHolder>(1))
-//        Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).perform(
-//                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(1, ViewActions.click())
-//        )
-//    }
+//@Test
+//fun recyclerViewBehav(){
+//    Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//}
+//
+//@Test
+//fun addToFavFromNextMatch(){
+//    Espresso.onView(ViewMatchers.withId(R.id.nextMatchMenu)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//    Espresso.onView(ViewMatchers.withId(R.id.nextMatchMenu)).perform(ViewActions.click())
+//
+//    recyclerViewBehav()
+//    Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(8))
+//    Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+//            10, ViewActions.click()
+//    ))
+//
+//    Espresso.onView(ViewMatchers.withId(R.id.add_to_fav)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//    Espresso.onView(ViewMatchers.withId(R.id.add_to_fav)).perform(ViewActions.click())
+//
+//    Espresso.pressBack()
+//
+//    recyclerViewBehav()
+//
+//}
+//
+//@Test
+//fun addToFavFromLastMatch(){
+//    Espresso.onView(ViewMatchers.withId(R.id.lastMatchMenu)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//    Espresso.onView(ViewMatchers.withId(R.id.lastMatchMenu)).perform(ViewActions.click())
+//
+//    recyclerViewBehav()
+//    Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(8))
+//    Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+//            10, ViewActions.click()
+//    ))
+//
+//    Espresso.onView(ViewMatchers.withId(R.id.add_to_fav)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//    Espresso.onView(ViewMatchers.withId(R.id.add_to_fav)).perform(ViewActions.click())
+//
+//    Espresso.pressBack()
+//
+//    recyclerViewBehav()
+//}
+//
+//@Test
+//fun removeFromFav(){
+//    Espresso.onView(ViewMatchers.withId(R.id.favouriteMatchMenu)).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+//    Espresso.onView(ViewMatchers.withId(R.id.favouriteMatchMenu)).perform(ViewActions.click())
+//
+//    Espresso.onView(ViewMatchers.withId(R.id.recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+//            0, ViewActions.click()
+//    ))
+//
+//    Espresso.onView(ViewMatchers.withId(R.id.add_to_fav)).check(ViewAssertions.matches(ViewMatchers.isEnabled()))
+//    Espresso.onView(ViewMatchers.withId(R.id.add_to_fav)).perform(ViewActions.click())
+//
+//}
 //}

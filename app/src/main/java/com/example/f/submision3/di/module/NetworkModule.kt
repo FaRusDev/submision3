@@ -1,5 +1,6 @@
 package com.example.f.submision3.di.module
 
+import android.support.test.espresso.idling.CountingIdlingResource
 import com.example.f.submision3.network.Network
 import com.example.f.submision3.util.BASE_URL
 import dagger.Module
@@ -11,6 +12,10 @@ import javax.inject.Singleton
 
 @Module
 class NetworkModule{
+
+
+    var idlingResource: CountingIdlingResource = CountingIdlingResource("Network_Calls")
+
     @Provides
     @Singleton
     fun providesGsonService(retrofit: Retrofit):Network{

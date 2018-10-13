@@ -12,14 +12,11 @@ import io.reactivex.disposables.CompositeDisposable
 abstract class BaseViewModel:ViewModel() {
 
     //TODO: ini cara injeksinya saya masih belum mengerti jadi saya buatkan instance supaya bisa terpanggil
-    val retrofit = NetworkModule().providesRetrofit()
-    var network = NetworkModule().providesGsonService(retrofit)
+
 
     //komponen dari data binding
-    val loading: MutableLiveData<Boolean> = MutableLiveData()
-    val rvVisibility: MutableLiveData<Boolean> = MutableLiveData()
-    var matchAdapter: MatchAdapter = MatchAdapter()
-    var compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+
 
 //    //nanti diperbarui di matchviewmodel
 //    abstract fun injector(componentDagger: ComponentDagger)
