@@ -1,9 +1,8 @@
 package com.example.f.submision3.data.remote
 
 import android.arch.lifecycle.MutableLiveData
-import android.support.test.espresso.idling.CountingIdlingResource
 import com.example.f.submision3.di.module.NetworkModule
-import com.example.f.submision3.network.Network
+import com.example.f.submision3.util.EspressoIdlingRes
 import com.example.f.submision3.util.SchedulerProviders
 import com.example.f.submision3.view.match.MatchAdapter
 import com.example.f.submission3.model.Match
@@ -22,7 +21,7 @@ abstract class MatchRemoteData(){
 
    var providerSchedulers:SchedulerProviders.BaseSchedulerProvider = SchedulerProviders.SchedulerProvider()
 
-    var idlingResource: CountingIdlingResource = CountingIdlingResource("Network_Calls")
+    var idlingResource: EspressoIdlingRes = EspressoIdlingRes()
 
     fun getNextMatch(){
 

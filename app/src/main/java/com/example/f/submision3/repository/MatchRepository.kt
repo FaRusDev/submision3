@@ -2,6 +2,7 @@ package com.example.f.submision3.repository
 
 import android.arch.lifecycle.MutableLiveData
 import com.example.f.submision3.data.remote.MatchRemoteData
+import com.example.f.submision3.util.EspressoIdlingRes
 import com.example.f.submission3.model.Match
 import com.example.f.submission3.model.Team
 import com.example.f.submission3.model.TeamsItem
@@ -21,14 +22,18 @@ open class MatchRepository{
             {
                 rvVisibility.value = false
                 loading.value = true
+
             }
 
-        override fun onCompleteSubscribe()     {
+        override fun onCompleteSubscribe() {
+            //penambahan idle resource
+            if (!EspressoIdlingRes().idlingResource.isIdleNow){
+                EspressoIdlingRes().decrement()
+            }
+
+            idlingResource.decrement()
             loading.value = false
             rvVisibility.value = true
-
-            //penambahan idle resource
-            idlingResource.decrement()
         }
 
         override fun subscribeSuccess(match: Match)     {

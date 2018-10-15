@@ -10,8 +10,8 @@ import com.example.f.submision3.databinding.RvItemBinding
 import com.example.f.submision3.util.EXTRA_MATCH
 import com.example.f.submission3.model.EventsItem
 
-class MatchAdapter:RecyclerView.Adapter<MatchAdapter.MatchVH>() {
-    lateinit var matchList: List<EventsItem?>
+class TeamAdapter:RecyclerView.Adapter<MatchAdapter.MatchVH>() {
+    lateinit var teamList: List<EventsItem?>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchVH =
            MatchVH(DataBindingUtil.inflate(LayoutInflater.from(parent.context),R.layout.rv_item,parent,false))

@@ -1,7 +1,8 @@
 package com.example.f.submision3.view.match
 
 import android.support.test.espresso.Espresso
-import android.support.test.espresso.Espresso.*
+import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.IdlingRegistry
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
@@ -10,9 +11,9 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import com.example.f.submision3.R.id.*
-import com.example.f.submision3.data.remote.MatchRemoteData
-import com.example.f.submission3.model.Match
-import com.example.f.submission3.model.Team
+import com.example.f.submision3.util.EspressoIdlingRes
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,34 +23,24 @@ class ActivityTest {
     @Rule
     @JvmField
     var activityTestRule = ActivityTestRule(MainActivity::class.java)
-    val remoteData = object : MatchRemoteData() {
-        override fun subscribeTeamSuccess(team: Team) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
 
-        override fun onSubscribe() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+    @Before
+    fun registeredIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingRes().idlingResource)
+    }
 
-        override fun onCompleteSubscribe() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun subscribeSuccess(match: Match) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
+    @After
+    fun unregisterIdlingResource(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingRes().idlingResource)
     }
 
     @Test
     fun recyclerViewBehav(){
-        //penambahan idling resouce untuk cek asynchronus
-        registerIdlingResources(remoteData.idlingResource)
         onView(withId(recyclerView)).check(matches(isDisplayed()))
     }
 
     @Test
     fun addToFavFromNextMatch(){
-
 
         onView(withId(nextMatchMenu)).check(matches(isDisplayed()))
         onView(withId(nextMatchMenu)).perform(click())

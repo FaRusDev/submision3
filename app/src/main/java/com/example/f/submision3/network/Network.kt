@@ -19,17 +19,3 @@ interface Network {
     fun getTeam(@Query("id")id:String):Observable<Team>
 
 }
-
-abstract class testNetwork:Network{
-
-    @GET("teamA.json")
-    abstract fun getTeamTest():Observable<Team>
-
-    override fun getTeam(id: String): Observable<Team> = getTeamTest()
-
-    @GET("match_response.json")
-    abstract fun getMatchTest():Observable<Match>
-
-    override fun getNextMatch(): Observable<Match> = getMatchTest()
-
-}
